@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    each category in categories 
+        h3= `${category.name}s` 
+        hr
+        ul
+            each item in items 
+                if item.category._id.toString()==category._id.toString()
+                    li 
+                        a(href=item.url) #{item.name}
+                    

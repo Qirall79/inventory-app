@@ -1,0 +1,11 @@
+extends layout 
+
+block content
+    h1= title 
+
+    ul 
+        li #[strong Description: ] #{item.description}
+        li #[strong Category: ]
+            a(href=item.category.url) #{item.category.name}
+        li #[strong Price: ] #{"$" + item.price}
+        li #[strong Number in Stock: ] #{item.number_in_stock}

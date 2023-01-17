@@ -1,0 +1,20 @@
+extends layout 
+
+block content 
+    h1= title 
+    br
+    h3 Description 
+    hr
+    p= category.description 
+
+    br
+
+    h3 Items 
+    hr
+    if !category_items.length
+        p #[strong There are no items in this category]
+    else 
+        ul 
+            each item in category_items 
+                li 
+                    a(href=item.url)    #{item.name} 
