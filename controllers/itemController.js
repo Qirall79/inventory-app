@@ -3,8 +3,9 @@ const Item = require("../models/item");
 
 const async = require("async");
 const { body, validationResult } = require("express-validator");
-const category = require("../models/category");
-const item = require("../models/item");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 exports.index = (req, res, next) => {
   async.parallel(
@@ -53,7 +54,6 @@ exports.item_create_get = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    console.log(categories);
     res.render("item_create", {
       title: "Create Item",
       categories,
@@ -84,7 +84,18 @@ exports.item_create_post = [
       price: req.body.price,
       number_in_stock: req.body.number_in_stock,
       category: req.body.category,
+      img: {
+        data: fs.readFileSync(
+          path.join(
+            __dirname,
+            "../uploads/",
+            req.file ? req.file.filename : "0762ae9c5ddbd5b0e92f23ecec91a98c"
+          )
+        ),
+        contentType: "image/png",
+      },
     });
+    console.log(req.file);
     if (!errors.isEmpty()) {
       Category.find((err, categories) => {
         if (err) {
@@ -162,8 +173,19 @@ exports.item_update_post = [
       price: req.body.price,
       number_in_stock: req.body.number_in_stock,
       category: req.body.category,
+      img: {
+        data: fs.readFileSync(
+          path.join(
+            __dirname,
+            "../uploads/",
+            req.file ? req.file.filename : "0762ae9c5ddbd5b0e92f23ecec91a98c"
+          )
+        ),
+        contentType: "image/png",
+      },
       _id: req.params.id,
     });
+    console.log(req.body);
     if (!errors.isEmpty()) {
       Category.find((err, categories) => {
         if (err) {
@@ -177,7 +199,6 @@ exports.item_update_post = [
           selected_category: item.category,
           update: true,
         });
-        return;
       });
       return;
     }
