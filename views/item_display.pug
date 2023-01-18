@@ -13,7 +13,7 @@ block content
             if (item.img==undefined)
                 p #[strong Image not found]
             else 
-                img(src=`data:image/${item.img.contentType};base64, ${(item.img.data).toString("base64")}`, alt="image")
+                img(src=`data:image/${item.img.contentType};base64, ${(item.img.data ? item.img.data : "").toString("base64")}`, alt="image")
     hr
     p 
         a(href=`${item.url}/update`) Update

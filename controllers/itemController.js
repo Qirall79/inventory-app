@@ -4,6 +4,7 @@ const Item = require("../models/item");
 const async = require("async");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
+const upload = multer({ dest: "uploads/" }).single("item_img");
 const fs = require("fs");
 const path = require("path");
 
@@ -166,6 +167,7 @@ exports.item_update_post = [
     .isNumeric({ min: 1 })
     .withMessage("There must be at least 1 item in stock for this product"),
   (req, res, next) => {
+    console.log(req.body);
     const errors = validationResult(req);
     const item = new Item({
       name: req.body.name,
@@ -185,7 +187,7 @@ exports.item_update_post = [
       },
       _id: req.params.id,
     });
-    console.log(req.body);
+
     if (!errors.isEmpty()) {
       Category.find((err, categories) => {
         if (err) {
