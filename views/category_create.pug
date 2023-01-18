@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    form(action="", method="post")
+        .input-group
+            label(for="name") Name 
+            input(type="text", name="name", id="name", placeholder="Name", value=(category===undefined ? "" : category.name))
+        .input-group 
+            label(for="description") Description 
+            input(type="text", name="description", id="description", placeholder="Description", value=(category===undefined ? "" : category.description)) 
+        input(type="submit", value=(update===undefined ? "Create" : "Update"))
+    
+    
+
+    if errors
+        if errors.length
+            hr
+            ul 
+                each error in errors
+                    li= error.msg

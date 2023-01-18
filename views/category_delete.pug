@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    if category_items.length 
+        p #[strong You need to delete the following items before deleting this category]
+        ul 
+            each item in category_items 
+                li 
+                    a(href=item.url)    #{item.name} 
+    else 
+        p #[strong Are you sure you want to delete this category ?]
+        form(action="", method="post") 
+            input(type="hidden", name="id", value=category._id)
+            input(type="submit", value="Delete")

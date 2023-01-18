@@ -5,12 +5,13 @@ const categoryController = require("../controllers/categoryController");
 /* Get categories listeners */
 router.get("/", categoryController.index);
 
-router.get("/:id", categoryController.category_get);
-
 // Create category
 router.get("/create", categoryController.category_create_get);
 
 router.post("/create", categoryController.category_create_post);
+
+// Get category
+router.get("/:id", categoryController.category_get);
 
 // Update category
 router.get("/:id/update", categoryController.category_update_get);

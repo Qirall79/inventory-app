@@ -1,0 +1,29 @@
+extends layout 
+
+block content 
+    h1= title 
+    form(action="", method="post") 
+        .input-group 
+            label(for="name") Name 
+            input(type="text", name="name", id="name", value=(item===undefined ? "" : item.name)) 
+        .input-group 
+            label(for="description") Description
+            input(type="text", name="description", id="description", value=(item===undefined ? "" : item.description)) 
+        .input-group 
+            label(for="price") Price 
+            input(type="number", name="price", id="price", min=1 value=(item===undefined ? "" : item.price)) 
+        .input-group 
+            label(for="number_in_stock") Number in Stock 
+            input(type="number", name="number_in_stock", min=1,  id="number_in_stock", value=(item===undefined ? "" : item.number_in_stock))
+        .input-group 
+            label(for="category") Category 
+            select(name="category", id="category")
+                if categories
+                    each category in categories 
+                        option(value=category._id selected=(selected_category===undefined ? (category.name == "Laptop" ? selected : false) : (category._id.toString() === selected_category._id.toString() ? "selected" : false))) #{category.name}
+        input(type="submit", value=(update===undefined ? "Create" : "Update"))
+    if errors 
+        hr
+        ul 
+            each error in errors 
+                li= error.msg

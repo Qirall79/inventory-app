@@ -3,13 +3,12 @@ const router = express.Router();
 const itemController = require("../controllers/itemController");
 
 router.get("/", itemController.index);
-
-router.get("/:id", itemController.item_get);
-
 // Create item
 router.get("/create", itemController.item_create_get);
 
 router.post("/create", itemController.item_create_post);
+
+router.get("/:id", itemController.item_get);
 
 // Update item
 router.get("/:id/update", itemController.item_update_get);
