@@ -3,12 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const compression = require("compression");
+const helmet = require("helmet");
 
 // Database setup
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
+const dev_db_url =
   "mongodb+srv://walid:walid123@cluster0.hqkhs9t.mongodb.net/inventory_app?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
@@ -20,6 +23,8 @@ const itemsRouter = require("./routes/items");
 
 var app = express();
 
+app.use(compression());
+app.use(helmet());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");

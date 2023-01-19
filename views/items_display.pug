@@ -7,10 +7,14 @@ block content
         h3= `${category.name}s` 
         hr
         ul
-            each item in items 
-                if item.category._id.toString()==category._id.toString()
+            - const category_items = items.filter((item) => item.category._id.toString() == category._id.toString());
+            if category_items.length
+                each item in category_items 
                     li 
                         a(href=item.url) #{item.name}
+            else 
+                p #[strong There are no items in this category]
+        br
     p  
         a(href="/items/create") Create new
                     
